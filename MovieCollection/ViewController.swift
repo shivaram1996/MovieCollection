@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     
     var apiManager : NetworkClient?
+    
+    let imageCache = NSCache<AnyObject, UIImage>()
 
     override func viewDidLoad() {
         super.viewDidLoad()

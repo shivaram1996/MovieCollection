@@ -12,6 +12,8 @@ struct MovieList : Codable{
 }
 
 
+
+//movie list
 struct MovieResponse : Codable {
     let title : String?
     let year : String?
@@ -34,6 +36,34 @@ struct MovieResponse : Codable {
         year = try values.decodeIfPresent(String.self, forKey: .year)
         imdbID = try values.decodeIfPresent(String.self, forKey: .imdbID)
         type = try values.decodeIfPresent(String.self, forKey: .type)
+        poster = try values.decodeIfPresent(String.self, forKey: .poster)
+    }
+}
+
+
+//Movie detail response
+struct MovieDetailResponse : Codable {
+    let title : String?
+    let releaseDate : String?
+    let directorName : String?
+    let plot : String?
+    let poster : String?
+
+    enum CodingKeys: String, CodingKey {
+
+        case title = "Title"
+        case releaseDate = "Released"
+        case directorName = "Director"
+        case plot = "Plot"
+        case poster = "Poster"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        title = try values.decodeIfPresent(String.self, forKey: .title)
+        releaseDate = try values.decodeIfPresent(String.self, forKey: .releaseDate)
+        directorName = try values.decodeIfPresent(String.self, forKey: .directorName)
+        plot = try values.decodeIfPresent(String.self, forKey: .plot)
         poster = try values.decodeIfPresent(String.self, forKey: .poster)
     }
 }

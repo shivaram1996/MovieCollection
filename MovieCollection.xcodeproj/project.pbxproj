@@ -15,6 +15,7 @@
 		1A73924A28E0B27B00BD6EC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A73924828E0B27B00BD6EC4 /* LaunchScreen.storyboard */; };
 		1A73925328E0BA1300BD6EC4 /* MovieEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925228E0BA1300BD6EC4 /* MovieEntity.swift */; };
 		1A73925528E0BB0D00BD6EC4 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925428E0BB0D00BD6EC4 /* NetworkManager.swift */; };
+		1A73925828E0D81500BD6EC4 /* MovieDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925728E0D81500BD6EC4 /* MovieDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		1A73924B28E0B27B00BD6EC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A73925228E0BA1300BD6EC4 /* MovieEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieEntity.swift; sourceTree = "<group>"; };
 		1A73925428E0BB0D00BD6EC4 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		1A73925728E0D81500BD6EC4 /* MovieDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 		1A73923C28E0B27600BD6EC4 /* MovieCollection */ = {
 			isa = PBXGroup;
 			children = (
+				1A73925628E0D7F500BD6EC4 /* MovieDetail */,
 				1A73925128E0B9FA00BD6EC4 /* Network */,
 				1A73923D28E0B27600BD6EC4 /* AppDelegate.swift */,
 				1A73923F28E0B27600BD6EC4 /* SceneDelegate.swift */,
@@ -79,6 +82,14 @@
 				1A73925428E0BB0D00BD6EC4 /* NetworkManager.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		1A73925628E0D7F500BD6EC4 /* MovieDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1A73925728E0D81500BD6EC4 /* MovieDetailVC.swift */,
+			);
+			path = MovieDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,6 +167,7 @@
 				1A73925328E0BA1300BD6EC4 /* MovieEntity.swift in Sources */,
 				1A73925528E0BB0D00BD6EC4 /* NetworkManager.swift in Sources */,
 				1A73923E28E0B27600BD6EC4 /* AppDelegate.swift in Sources */,
+				1A73925828E0D81500BD6EC4 /* MovieDetailVC.swift in Sources */,
 				1A73924028E0B27600BD6EC4 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
