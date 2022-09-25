@@ -1,26 +1,25 @@
 //
-//  ViewController.swift
+//  MovieDetailVC.swift
 //  MovieCollection
 //
-//  Created by shiva ram on 25/09/22.
+//  Created by shiva ram on 26/09/22.
 //
-
 import UIKit
 
-class ViewController: UIViewController {
-    
+class MovieDetailedVC: UIViewController {
     
     var apiManager : NetworkClient?
-    
-    let imageCache = NSCache<AnyObject, UIImage>()
+   // @IBOutlet weak var tableView: UITableView!
 
+    //MARK: Lifecycle Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
         apiManager = NetworkManager.shared
         // Create the URL to fetch
-        guard let url = URL(string: "https://www.omdbapi.com/?s=Batman&apikey=f149143e") else { fatalError("Invalid URL") }
+        guard let url = URL(string: "https://www.omdbapi.com/?apikey=f149143e&i=tt0372784") else { fatalError("Invalid URL") }
 
         // Request data from the backend
         apiManager?.getRequest(fromURL: url, httpMethod: .get) { (result: Result<MovieList, Error>) in
@@ -33,8 +32,7 @@ class ViewController: UIViewController {
          }
 
     }
-
     
-
+    
+  
 }
-
