@@ -9,6 +9,7 @@ import Foundation
 
 struct MovieList : Codable{
     let Search : [MovieResponse]?
+    let totalResults : String?
 }
 
 
