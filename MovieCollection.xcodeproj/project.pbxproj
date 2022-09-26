@@ -18,6 +18,7 @@
 		1A73925828E0D81500BD6EC4 /* MovieDetailedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925728E0D81500BD6EC4 /* MovieDetailedVC.swift */; };
 		1A73925A28E0E12100BD6EC4 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925928E0E12000BD6EC4 /* MovieCell.swift */; };
 		1A73925C28E0E48D00BD6EC4 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925B28E0E48D00BD6EC4 /* Utility.swift */; };
+		1A73925E28E144CB00BD6EC4 /* MovieDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A73925D28E144CB00BD6EC4 /* MovieDetailTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		1A73925728E0D81500BD6EC4 /* MovieDetailedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailedVC.swift; sourceTree = "<group>"; };
 		1A73925928E0E12000BD6EC4 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		1A73925B28E0E48D00BD6EC4 /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		1A73925D28E144CB00BD6EC4 /* MovieDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				1A73924B28E0B27B00BD6EC4 /* Info.plist */,
 				1A73925928E0E12000BD6EC4 /* MovieCell.swift */,
 				1A73925B28E0E48D00BD6EC4 /* Utility.swift */,
+				1A73925D28E144CB00BD6EC4 /* MovieDetailTableViewCell.swift */,
 			);
 			path = MovieCollection;
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A73925E28E144CB00BD6EC4 /* MovieDetailTableViewCell.swift in Sources */,
 				1A73925A28E0E12100BD6EC4 /* MovieCell.swift in Sources */,
 				1A73924228E0B27600BD6EC4 /* MovieDatabaseVC.swift in Sources */,
 				1A73925328E0BA1300BD6EC4 /* MovieEntity.swift in Sources */,

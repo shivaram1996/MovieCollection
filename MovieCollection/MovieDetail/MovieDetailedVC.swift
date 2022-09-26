@@ -9,8 +9,10 @@ import UIKit
 class MovieDetailedVC: UIViewController {
     
     var apiManager : NetworkClient?
-   // @IBOutlet weak var tableView: UITableView!
-
+    var movieId : String?
+    @IBOutlet weak var tableView: UITableView!
+    var movieResponse : MovieDetailResponse?
+    var imageCache : NSCache<AnyObject, UIImage>?
     //MARK: Lifecycle Functions
     
     override func viewDidLoad() {
@@ -19,20 +21,61 @@ class MovieDetailedVC: UIViewController {
         
         apiManager = NetworkManager.shared
         // Create the URL to fetch
-        guard let url = URL(string: "https://www.omdbapi.com/?apikey=f149143e&i=tt0372784") else { fatalError("Invalid URL") }
-
+        var urlString = "https://www.omdbapi.com/?apikey=f149143e"
+        urlString += "&i=" + movieId!
+        guard let url = URL(string: urlString) else { fatalError("Invalid URL") }
+        
         // Request data from the backend
-        apiManager?.getRequest(fromURL: url, httpMethod: .get) { (result: Result<MovieList, Error>) in
+        apiManager?.getRequest(fromURL: url, httpMethod: .get) { (result: Result<MovieDetailResponse, Error>) in
             switch result {
-            case .success(let movieList):
-                debugPrint("We got a successful result with \(movieList.Search?.count) movies.")
+            case .success(let movieResponse):
+                DispatchQueue.main.async {[weak self] in
+                    self?.movieResponse = movieResponse
+                    self?.tableView.reloadData()
+                }
             case .failure(let error):
-                debugPrint("We got a failure trying to get the users. The error we got was: \(error.localizedDescription)")
+                debugPrint("Unable to load the list: \(error.localizedDescription)")
             }
-         }
+        }
 
     }
     
     
   
 }
+
+
+extension MovieDetailedVC : UITableViewDelegate,UITableViewDataSource {
+  
+     //MARK: Table View Data Source
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? MovieDetailTableViewCell else {return UITableViewCell()}
+        cell.itemTitle.text = movieResponse?.title ?? ""
+        cell.itemDirector.text = movieResponse?.directorName ?? ""
+        cell.itemRelease.text = movieResponse?.releaseDate ?? ""
+        cell.itemPlot.text = movieResponse?.plot ?? ""
+        if let imgUrl = movieResponse?.poster,let keyId = movieId {
+            Utility.getImage(cache: self.imageCache, key: keyId, url: imgUrl, completion: { (image,flag) in
+                if let posterImage = image,flag{
+                    DispatchQueue.main.async {
+                        cell.actInd.stopAnimating()
+                        cell.actInd.isHidden = true
+                        cell.itemImage.image = posterImage
+                    }
+                }
+            })
+        }
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+}
+

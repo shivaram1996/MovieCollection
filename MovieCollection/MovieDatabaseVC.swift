@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class MovieDatabaseVC: UIViewController {
     
     
@@ -21,6 +23,7 @@ class MovieDatabaseVC: UIViewController {
         self.imageCache = NSCache<AnyObject, UIImage>()
         // Do any additional setup after loading the view.
         searchBar.delegate = self
+        searchBar.showsCancelButton = true
         movieCollection.delegate = self
         movieCollection.dataSource = self
     }
@@ -55,6 +58,11 @@ extension MovieDatabaseVC : UISearchBarDelegate{
         }
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.movieList = nil
+        self.movieCollection.reloadData()
+    }
+    
 }
 
 
@@ -68,24 +76,25 @@ extension MovieDatabaseVC : UICollectionViewDataSource,UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? MovieCell else {
             return UICollectionViewCell()
-       }
+        }
         cell.movieTitle.text = self.movieList?.Search?[indexPath.row].title ?? ""
-        DispatchQueue.main.async {
-            if let imgUrl = self.movieList?.Search?[indexPath.row].poster,let keyId = self.movieList?.Search?[indexPath.row].imdbID {
-                Utility.getImage(cache: self.imageCache, key: keyId, url: imgUrl, completion: { (image,flag) in
-                    if let posterImage = image,flag{
-                        DispatchQueue.main.async {
-                            cell.posterIcon.image = posterImage
-                        }
+        if let imgUrl = self.movieList?.Search?[indexPath.row].poster,let keyId = self.movieList?.Search?[indexPath.row].imdbID {
+            Utility.getImage(cache: self.imageCache, key: keyId, url: imgUrl, completion: { (image,flag) in
+                if let posterImage = image,flag{
+                    DispatchQueue.main.async {
+                        cell.posterIcon.image = posterImage
                     }
-                })
-            }
+                }
+            })
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("TODO")
+        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "MovieDetailedVC") as? MovieDetailedVC
+        vc?.movieId = self.movieList?.Search?[indexPath.row].imdbID
+        vc?.imageCache = imageCache
+        self.navigationController?.pushViewController(vc!, animated: true)
     }
     
 
