@@ -62,22 +62,26 @@ extension MovieDatabaseVC : UICollectionViewDataSource,UICollectionViewDelegate{
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return movieList?.Search?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? MovieCell
-        cell?.movieTitle.text = self.movieList?.Search?[indexPath.row].title ?? ""
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? MovieCell else {
+            return UICollectionViewCell()
+       }
+        cell.movieTitle.text = self.movieList?.Search?[indexPath.row].title ?? ""
         DispatchQueue.main.async {
             if let imgUrl = self.movieList?.Search?[indexPath.row].poster,let keyId = self.movieList?.Search?[indexPath.row].imdbID {
-                Utility.getImage(cache: self.imageCache, key: keyId, url: imgUrl, completion: { (image) in
-                    if let posterImage = image{
-                        cell?.posterIcon.image = posterImage
+                Utility.getImage(cache: self.imageCache, key: keyId, url: imgUrl, completion: { (image,flag) in
+                    if let posterImage = image,flag{
+                        DispatchQueue.main.async {
+                            cell.posterIcon.image = posterImage
+                        }
                     }
                 })
             }
         }
-        return cell ?? UICollectionViewCell()
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -86,4 +90,16 @@ extension MovieDatabaseVC : UICollectionViewDataSource,UICollectionViewDelegate{
     
 
 
+}
+
+extension MovieDatabaseVC : UICollectionViewDelegateFlowLayout{
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = collectionView.bounds.width
+        let numberOfItemsPerRow: CGFloat = 2
+        let spacing: CGFloat = 5
+        let availableWidth = width - spacing * (numberOfItemsPerRow + 1)
+        let itemDimension = floor(availableWidth / numberOfItemsPerRow)
+        return CGSize(width: itemDimension, height: itemDimension)
+    }
 }
